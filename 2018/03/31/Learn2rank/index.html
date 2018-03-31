@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="LOVE SPURS">
 <meta property="og:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_2.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_3.jpg">
-<meta property="og:updated_time" content="2018-03-31T14:15:30.847Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_pic/l2r_1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_pic/l2r_2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_pic/l2r_3.jpg">
+<meta property="og:updated_time" content="2018-03-31T14:32:56.458Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Learn2rank的简单介绍">
 <meta name="twitter:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/31/Learn2rank/l2r_pic/l2r_1.jpg">
 
 
 
@@ -325,7 +325,7 @@
 
       
         <h1 id="什么是Learn-to-rank"><a href="#什么是Learn-to-rank" class="headerlink" title="什么是Learn to rank"></a>什么是Learn to rank</h1><p>&nbsp;&nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如文档的tf,idf,bm25等。对于传统的排序方法，很难融合多种信息，比如向量空间模型以tf * idf作为权重构建相关度函数，就很难利用其它信息了，并且如果模型中参数很多，也会使得调参非常困难，而且很困会出现过拟合现象。于是，很自然的想到了用机器学习(Machine Learning)来解决这一问题，从而产生了Lean to Rank。机器学习很容易融合多种特征，而且有成熟身后的理论基础，参数是通过迭代优化出来的，有一套成熟理论解决稀疏、过拟合问题。</p>
-<p><img src="l2r_1.jpg" alt="avatar"></p>
+<p><img src="l2r_pic/l2r_1.jpg" alt="avatar"></p>
 <center>图1 排序学习系统框架</center>
 
 <p>&nbsp;&nbsp;对于标注训练集，选定L2R方法，确定损失函数，以最小化损失函数为目标进行优化即可得到排序模型的相关分数，这就是学习过程。预测过程将待预测结果输入学习得到的排序模型中，即可得到结果的相关得分，利用该得分进行排序即可得到待预测结果的最终排序。</p>
@@ -391,7 +391,7 @@
 </div>
 <p>&nbsp;&nbsp;当模型参数学习完毕后，之后就可利用模型进行相关性判断，对新的查询q和文档d，通过模型的打分函数可以得到一个数值，利用该数值可以文档进行相关性排序。</p>
 <p>&nbsp;&nbsp;PointWise完全从单文档的分类角度计算，没有考虑文档之间的相对顺序。而且它假设相关度是查询无关的，只要(query, doc)的相关度相同，那么他们就被划分到同一个级别中，属于同一类。然而实际上，相关度的相对性是和查询相关的，比如一个常见的查询它会有很多相关的文档，该查询和它相关性相对靠后的文档的label标注级别时可能会比一个稀有的查询和它为数不多的高度相关文档的label标准级别更高。这样就导致训练样本的不一致，并且对于预测为同一label级别的文档之间也无法相对排序。</p>
-<h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><p>&nbsp;&nbsp;PairWise是目前比较流行的方法，相对PointWise方法，PairWise将重点转向了文档顺序关系。主要将排序问题归结一个二元分类问题，这时机器学习的方法就更多了，比如Boosting、SVM、神经网络等等。对于同一个query的相关文档集，对任何两个不同label的文档，都可以得到一个训练实例$(d{_i},d{_j}),如果d{_i}&gt;d{_j}$，则赋值+1，反之-1。于是，我们可以得到一个二元分类器训练所需的训练样本。如图2所示。测试时，只要对所有pair进行分类，就可以得到所有文档的一个偏序关系，从而实现排序。<br><img src="l2r_2.jpg" alt="avatar"></p>
+<h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><p>&nbsp;&nbsp;PairWise是目前比较流行的方法，相对PointWise方法，PairWise将重点转向了文档顺序关系。主要将排序问题归结一个二元分类问题，这时机器学习的方法就更多了，比如Boosting、SVM、神经网络等等。对于同一个query的相关文档集，对任何两个不同label的文档，都可以得到一个训练实例$(d{_i},d{_j}),如果d{_i}&gt;d{_j}$，则赋值+1，反之-1。于是，我们可以得到一个二元分类器训练所需的训练样本。如图2所示。测试时，只要对所有pair进行分类，就可以得到所有文档的一个偏序关系，从而实现排序。<br><img src="l2r_pic/l2r_2.jpg" alt="avatar"></p>
 <center>图2 PairWise方法示意</center>
 
 <p>&nbsp;&nbsp;尽管PairWise对PointWise做了改进，但该方法还是存在明显的问题：</p>
@@ -401,7 +401,7 @@
 </ul>
 <h2 id="ListWise"><a href="#ListWise" class="headerlink" title="ListWise"></a>ListWise</h2><p>&nbsp;&nbsp;ListWise与上述两种方法不同，它是将每个query对应的所有搜索结果列表作为一个训练样例。ListWise根据训练样例训练得到最优评分函数F，对应新的查询，评分F对每个文档打分，然后根据得分由高到低排序，生成最终的排序结果。</p>
 <p>&nbsp;&nbsp;对应如何训练最优评分函数，本文介绍一种基于搜索结果排列组合的概率分布情况来训练的方法。如图3所示，对应的查询Q，假设搜索引擎返回结果A、B、C三篇文档，这三篇文档可以产生6种排列方式，对应的评分函数F，对三篇文档进行相关度打分，得到F(A)、F(B)、F(C)，根据这三个值可以计算6种排列组合情况各自的概率值。对应不同的评分函数F，6种排列的概率分布是不同的。</p>
-<p><img src="l2r_3.jpg" alt="avatar"></p>
+<p><img src="l2r_pic/l2r_3.jpg" alt="avatar"></p>
 <center>图3 ListWise方法示意</center>
 
 <p>&nbsp;&nbsp;假设评分函数g是由人工标记得到的标准答案对应的评分函数，它是怎样的我们暂时不清楚，我们试图找到一个评分函数f，使得f产生的打分和人工的打分尽可能相同。假设存在两个其他评分函数h和f，他们的计算方法已知，对应的搜索排列组合概率分布如图所示，通过KL距离可知，f比h更接近于虚拟的最优函数g。训练过程就是在尽可能的函数中寻找最接近虚拟函数g的那个函数，预测时用该评分函数进行打分。</p>
