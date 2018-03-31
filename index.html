@@ -324,7 +324,7 @@
         
           
             <h1 id="什么是Learn-to-rank"><a href="#什么是Learn-to-rank" class="headerlink" title="什么是Learn to rank"></a>什么是Learn to rank</h1><p>LTR(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如文档的tf,idf,bm25等。对于传统的排序方法，很难融合多种信息，比如向量空间模型以tf*idf作为权重构建相关度函数，就很难利用其它信息了，并且如果模型中参数很多，也会使得调参非常困难，而且很困会出现过拟合现象。于是，很自然的想到了用机器学习(Machine Learning)来解决这一问题，从而产生了Lean to Rank。机器学习很容易融合多种特征，而且有成熟身后的理论基础，参数是通过迭代优化出来的，有一套成熟理论解决稀疏、过拟合问题。</p>
-<p>![learn2rank/排序系统学习框架.jpg]</p>
+<p><img src="learn2rank/排序系统学习框架.jpg" alt="avatar"></p>
 
           
         
