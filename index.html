@@ -331,6 +331,32 @@
 <h1 id="L2R方法"><a href="#L2R方法" class="headerlink" title="L2R方法"></a>L2R方法</h1><p>&nbsp;&nbsp;L2R一般有3种方法：单文档方法（PointWise)，文档对方法（PairWise)，文档列表方法（ListWise)。</p>
 <h2 id="PointWise"><a href="#PointWise" class="headerlink" title="PointWise"></a>PointWise</h2><p>&nbsp;&nbsp;PointWise处理对象是单一文档，通过提取文档里面的特征转化成特征向量，主要是将排序问题转化为机器学习中的常规的分类或者回归问题。我们现在以多分类为例进行举例：表1是人工标注的部分训练集合，每个文档采用三个特征：查询q与文档d的BM25相似度，查询q与文档d的cos相似度，以及文档的PageRank值。查询q与文档d的相关性label分为5个等级，即{perfect, excellent, good, fair, bad}。于是，产生了5个具有label的训练实例，然后我们可以使用机器学习的任一种多分类算法进行学习，比如最大熵，SVM，RF等等。</p>
 <p><center>表1 部分训练数据 </center><br>| 文档ID | 查询 | BM25相似度 | cos相似度 | PageRank值 | Label |<br>| :-: | :-:| :-: | :-:  | :-:| :-:|<br>|  1     | 苹果 库克 | 0.15 | 0.13 | 5 | bad |<br>|  2     |  苹果 ipad | 0.32 | 0.24 | 7 | good |<br>|3 | 微软 产品 | 0.22 | 0.19 | 2 | good |<br>|4 | 谷歌 手机 | 0.55 | 0.53 | 3 | perfect |<br>| 5 | 百度 战略 | 0.35 | 0.28 | 1 | excellent | </p>
+<table>
+<thead>
+<tr>
+<th>水果</th>
+<th style="text-align:right">价格</th>
+<th style="text-align:center">数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>香蕉</td>
+<td style="text-align:right">$1</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td>苹果</td>
+<td style="text-align:right">$1</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td>草莓</td>
+<td style="text-align:right">$1</td>
+<td style="text-align:center">7</td>
+</tr>
+</tbody>
+</table>
 <h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><h2 id="ListWise"><a href="#ListWise" class="headerlink" title="ListWise"></a>ListWise</h2>
           
         
