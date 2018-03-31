@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdn.net/20130526121745414">
 <meta property="og:image" content="https://img-blog.csdn.net/20130526121929121">
-<meta property="og:updated_time" content="2018-03-31T12:11:00.142Z">
+<meta property="og:updated_time" content="2018-03-31T12:12:00.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Learn2rank的简单介绍">
 <meta name="twitter:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
@@ -387,7 +387,7 @@
 </table>
 <p>&nbsp;&nbsp;当模型参数学习完毕后，之后就可利用模型进行相关性判断，对新的查询q和文档d，通过模型的打分函数可以得到一个数值，利用该数值可以文档进行相关性排序。</p>
 <p>&nbsp;&nbsp;PointWise完全从单文档的分类角度计算，没有考虑文档之间的相对顺序。而且它假设相关度是查询无关的，只要(query, doc)的相关度相同，那么他们就被划分到同一个级别中，属于同一类。然而实际上，相关度的相对性是和查询相关的，比如一个常见的查询它会有很多相关的文档，该查询和它相关性相对靠后的文档的label标注级别时可能会比一个稀有的查询和它为数不多的高度相关文档的label标准级别更高。这样就导致训练样本的不一致，并且对于预测为同一label级别的文档之间也无法相对排序。</p>
-<h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><p>&nbsp;&nbsp;PairWise是目前比较流行的方法，相对PointWise方法，PairWise将重点转向了文档顺序关系。主要将排序问题归结一个二元分类问题，这时机器学习的方法就更多了，比如Boosting、SVM、神经网络等等。对于同一个query的相关文档集，对任何两个不同label的文档，都可以得到一个训练实例$$(d{_i},d{_j})$$,如果$$d{_i}&gt;d{_j}$$，则赋值+1，反之-1。于是，我们可以得到一个二元分类器训练所需的训练样本。如图2所示。测试时，只要对所有pair进行分类，就可以得到所有文档的一个偏序关系，从而实现排序。<br><img src="https://img-blog.csdn.net/20130526121929121" alt="avatar"></p>
+<h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><p>&nbsp;&nbsp;PairWise是目前比较流行的方法，相对PointWise方法，PairWise将重点转向了文档顺序关系。主要将排序问题归结一个二元分类问题，这时机器学习的方法就更多了，比如Boosting、SVM、神经网络等等。对于同一个query的相关文档集，对任何两个不同label的文档，都可以得到一个训练实例$$(d{_i},d{_j})$$,如果的$$d{_i}&gt;d{_j}$$，则赋值+1，反之-1。于是，我们可以得到一个二元分类器训练所需的训练样本。如图2所示。测试时，只要对所有pair进行分类，就可以得到所有文档的一个偏序关系，从而实现排序。<br><img src="https://img-blog.csdn.net/20130526121929121" alt="avatar"></p>
 <p><center>图2 PairWise方法示意</center></p>
 <h2 id="ListWise"><a href="#ListWise" class="headerlink" title="ListWise"></a>ListWise</h2>
       
