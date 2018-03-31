@@ -87,7 +87,7 @@
 <meta property="og:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdn.net/20130526121745414">
-<meta property="og:updated_time" content="2018-03-31T08:48:09.916Z">
+<meta property="og:updated_time" content="2018-03-31T08:50:01.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Learn2rank的简单介绍">
 <meta name="twitter:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
@@ -330,7 +330,60 @@
 <h2 id="PointWise"><a href="#PointWise" class="headerlink" title="PointWise"></a>PointWise</h2><p>&nbsp;&nbsp;PointWise处理对象是单一文档，通过提取文档里面的特征转化成特征向量，主要是将排序问题转化为机器学习中的常规的分类或者回归问题。我们现在以多分类为例进行举例：表1是人工标注的部分训练集合，每个文档采用三个特征：查询q与文档d的BM25相似度，查询q与文档d的cos相似度，以及文档的PageRank值。查询q与文档d的相关性label分为5个等级，即{perfect, excellent, good, fair, bad}。于是，产生了5个具有label的训练实例，然后我们可以使用机器学习的任一种多分类算法进行学习，比如最大熵，SVM，RF等等。</p>
 <center>表1 部分训练数据 </center>
 
-<p><center><br>| 文档id        | 查询q    | BM25相似度   | cos相似度 | PageRank值 | label |<br>| ——–   | —–:   | :—-: |  :—-: |  :—–: | :——:  | :—-: |<br>|  1     | 苹果 库克 | 0.15 | 0.13 | 5 | bad     |<br>|  2     |  苹果 ipad| 0.32 | 0.24 | 7 | good    |<br>|3       | 微软 产品 | 0.22 | 0.19 | 2 | good    |<br>|4       | 谷歌 手机 | 0.55 | 0.53 | 3 | perfect |<br>| 5      | 百度 战略 | 0.35 | 0.28 | 1 |excellent|<br></center></p>
+<table>
+<thead>
+<tr>
+<th>文档id</th>
+<th style="text-align:right">查询q</th>
+<th style="text-align:center">BM25相似度</th>
+<th style="text-align:center">cos相似度</th>
+<th style="text-align:center">PageRank值</th>
+<th style="text-align:center">label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:right">苹果 库克</td>
+<td style="text-align:center">0.15</td>
+<td style="text-align:center">0.13</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">bad</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:right">苹果 ipad</td>
+<td style="text-align:center">0.32</td>
+<td style="text-align:center">0.24</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">good</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:right">微软 产品</td>
+<td style="text-align:center">0.22</td>
+<td style="text-align:center">0.19</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">good</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:right">谷歌 手机</td>
+<td style="text-align:center">0.55</td>
+<td style="text-align:center">0.53</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">perfect</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align:right">百度 战略</td>
+<td style="text-align:center">0.35</td>
+<td style="text-align:center">0.28</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">excellent</td>
+</tr>
+</tbody>
+</table>
 <h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><h2 id="ListWise"><a href="#ListWise" class="headerlink" title="ListWise"></a>ListWise</h2>
       
     </div>
