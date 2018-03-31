@@ -88,7 +88,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdn.net/20130526121745414">
 <meta property="og:image" content="https://img-blog.csdn.net/20130526121929121">
-<meta property="og:updated_time" content="2018-03-31T13:00:27.548Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20130526122022885">
+<meta property="og:updated_time" content="2018-03-31T13:09:33.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Learn2rank的简单介绍">
 <meta name="twitter:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
@@ -399,6 +400,20 @@
 </ul>
 <h2 id="ListWise"><a href="#ListWise" class="headerlink" title="ListWise"></a>ListWise</h2><p>&nbsp;&nbsp;ListWise与上述两种方法不同，它是将每个query对应的所有搜索结果列表作为一个训练样例。ListWise根据训练样例训练得到最优评分函数F，对应新的查询，评分F对每个文档打分，然后根据得分由高到低排序，生成最终的排序结果。</p>
 <p>&nbsp;&nbsp;对应如何训练最优评分函数，本文介绍一种基于搜索结果排列组合的概率分布情况来训练的方法。如图3所示，对应的查询Q，假设搜索引擎返回结果A、B、C三篇文档，这三篇文档可以产生6种排列方式，对应的评分函数F，对三篇文档进行相关度打分，得到F(A)、F(B)、F(C)，根据这三个值可以计算6种排列组合情况各自的概率值。对应不同的评分函数F，6种排列的概率分布是不同的。</p>
+<p><img src="https://img-blog.csdn.net/20130526122022885" alt="avatar"></p>
+<center>图3 ListWise方法示意</center>
+
+<p>&nbsp;&nbsp;假设评分函数g是由人工标记得到的标准答案对应的评分函数，它是怎样的我们暂时不清楚，我们试图找到一个评分函数f，使得f产生的打分和人工的打分尽可能相同。假设存在两个其他评分函数h和f，他们的计算方法已知，对应的搜索排列组合概率分布如图所示，通过KL距离可知，f比h更接近于虚拟的最优函数g。训练过程就是在尽可能的函数中寻找最接近虚拟函数g的那个函数，预测时用该评分函数进行打分。</p>
+<p>&nbsp;&nbsp;ListWise方法比PointWise和PairWise更加直接，它更加专注于自己的目标和任务，直接对文档排序结果进行优化，因此往往效果也是最好的。ListWise常用的方法有AdaRank，SoftRank，LambdaMART等。</p>
+<h1 id="LTR训练数据获取"><a href="#LTR训练数据获取" class="headerlink" title="LTR训练数据获取"></a>LTR训练数据获取</h1><ul>
+<li>人工标注。如果需要大量的训练数据，人工标注不太现实</li>
+<li>对应搜索引擎来说，可以通过用户点击记录来获取训练数据。对应查询返回的搜索结果，用户会点击其中的某些网页，假设用户优先点击的是和查询更相关的网页。尽管很多时候这种假设并不成立，但实际经验表明这种获取训练数据是可行的。</li>
+</ul>
+<h1 id="LTR特征选取"><a href="#LTR特征选取" class="headerlink" title="LTR特征选取"></a>LTR特征选取</h1><ul>
+<li>使用LTR时会选取一系列文本特征，利用机器学习方法很好的融合到一个排序模型中，来决定最终结果的顺序，其中每一个特征我们称为一个“feature”。对于一个网页文本，feature所在的文档区域可以包括body域，anchor域，title域，url域，whole document域等。</li>
+<li>文档的feature又可以分为两种类型：一是文档本身的特征，比如Pagerank值、内容丰富度、spam值、number of slash、url length、inlink number、outlink number、siterank等。二是Query-Doc的特征：文档对应查询的相关度、每个域的tf、idf值，bool model，vsm，bm25，language model相关度等。</li>
+<li>综合上述的文档feature的两种类型和位于文档的不同域，我们可以组合出很多feature，当然有些feature是正相关有些是负相关，这需要我们通过学习过程去选取优化。</li>
+</ul>
 
       
     </div>
@@ -579,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Learn-to-rank"><span class="nav-number">1.</span> <span class="nav-text">什么是Learn to rank</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L2R方法"><span class="nav-number">2.</span> <span class="nav-text">L2R方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PointWise"><span class="nav-number">2.1.</span> <span class="nav-text">PointWise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PairWise"><span class="nav-number">2.2.</span> <span class="nav-text">PairWise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ListWise"><span class="nav-number">2.3.</span> <span class="nav-text">ListWise</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Learn-to-rank"><span class="nav-number">1.</span> <span class="nav-text">什么是Learn to rank</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L2R方法"><span class="nav-number">2.</span> <span class="nav-text">L2R方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PointWise"><span class="nav-number">2.1.</span> <span class="nav-text">PointWise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PairWise"><span class="nav-number">2.2.</span> <span class="nav-text">PairWise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ListWise"><span class="nav-number">2.3.</span> <span class="nav-text">ListWise</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LTR训练数据获取"><span class="nav-number">3.</span> <span class="nav-text">LTR训练数据获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LTR特征选取"><span class="nav-number">4.</span> <span class="nav-text">LTR特征选取</span></a></li></ol></div>
             
 
           </div>
