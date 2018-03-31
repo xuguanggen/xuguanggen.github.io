@@ -87,7 +87,7 @@
 <meta property="og:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdn.net/20130526121745414">
-<meta property="og:updated_time" content="2018-03-31T07:58:21.215Z">
+<meta property="og:updated_time" content="2018-03-31T08:15:15.834Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Learn2rank的简单介绍">
 <meta name="twitter:description" content="什么是Learn to rank&amp;nbsp;&amp;nbsp;L2R(learn to rank)学习排序是一种监督学习(Supervised Learning)的排序方法。LTR已经被广泛应用到文本挖掘相关的很多领域，比如IR中排序返回的文档，推荐系统中的候选产品、用户排序，机器翻译中排序候选翻译结果等等。IR领域传统的排序方法一般通过构造相关度函数，然后按照相关度进行排序。影响相关度的因素很多，比如">
@@ -327,7 +327,9 @@
 
 <p>&nbsp;&nbsp;对于标注训练集，选定L2R方法，确定损失函数，以最小化损失函数为目标进行优化即可得到排序模型的相关分数，这就是学习过程。预测过程将待预测结果输入学习得到的排序模型中，即可得到结果的相关得分，利用该得分进行排序即可得到待预测结果的最终排序。</p>
 <h1 id="L2R方法"><a href="#L2R方法" class="headerlink" title="L2R方法"></a>L2R方法</h1><p>&nbsp;&nbsp;L2R一般有3种方法：单文档方法（PointWise)，文档对方法（PairWise)，文档列表方法（ListWise)。</p>
-<h2 id="PointWise"><a href="#PointWise" class="headerlink" title="PointWise"></a>PointWise</h2><h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><h2 id="ListWise"><a href="#ListWise" class="headerlink" title="ListWise"></a>ListWise</h2>
+<h2 id="PointWise"><a href="#PointWise" class="headerlink" title="PointWise"></a>PointWise</h2><p>&nbsp;&nbsp;PointWise处理对象是单一文档，通过提取文档里面的特征转化成特征向量，主要是将排序问题转化为机器学习中的常规的分类或者回归问题。我们现在以多分类为例进行举例：表1是人工标注的部分训练集合，每个文档采用三个特征：查询q与文档d的BM25相似度，查询q与文档d的cos相似度，以及文档的PageRank值。查询q与文档d的相关性label分为5个等级，即{perfect, excellent, good, fair, bad}。于是，产生了5个具有label的训练实例，然后我们可以使用机器学习的任一种多分类算法进行学习，比如最大熵，SVM，RF等等。</p>
+<p><center>表1 部分训练数据 </center><br>| 文档ID | 查询 | BM25相似度 | cos相似度 | PageRank值 | Label |<br>| —— | —–| ———- | ——–  | ———–| ——|<br>|  1     | 苹果 库克 | 0.15 | 0.13 | 5 | bad |<br>|  2     |  苹果 ipad | 0.32 | 0.24 | 7 | good |<br>|3 | 微软 产品 | 0.22 | 0.19 | 2 | good |<br>|4 | 谷歌 手机 | 0.55 | 0.53 | 3 | perfect |<br>| 5 | 百度 战略 | 0.35 | 0.28 | 1 | excellent | </p>
+<h2 id="PairWise"><a href="#PairWise" class="headerlink" title="PairWise"></a>PairWise</h2><h2 id="ListWise"><a href="#ListWise" class="headerlink" title="ListWise"></a>ListWise</h2>
       
     </div>
     
